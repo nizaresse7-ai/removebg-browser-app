@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remove BG Browser App</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <main class="app-shell">
+    <section class="hero card">
+      <div>
+        <span class="badge">AI Background Remover</span>
+        <h1>Remove background directly in your browser app</h1>
+        <p>
+          Upload any PNG, JPG, or WEBP image, remove the background with rembg,
+          preview the result, then download the transparent PNG.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#workspace">Start now</a>
+        <a class="btn btn-secondary" href="/health" target="_blank" rel="noreferrer">Check backend</a>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace">
+      <aside class="card panel left-panel">
+        <h2>Upload & settings</h2>
+        <p class="muted">Choose image, tweak options, then click remove background.</p>
+
+        <label class="field">
+          <span>Backend URL</span>
+          <input id="backendUrl" value="/api/remove" />
+        </label>
+
+        <label class="upload-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden />
+          <strong>Drop image here</strong>
+          <span>or click to upload PNG, JPG, WEBP</span>
+        </label>
+
+        <div class="grid two-cols">
+          <label class="field">
+            <span>Model</span>
+            <select id="model">
+              <option value="u2net">u2net</option>
+              <option value="u2net_human_seg">u2net_human_seg</option>
+              <option value="silueta">silueta</option>
+            </select>
+          </label>
+
+          <label class="field checkbox-field">
+            <span>Alpha matting</span>
+            <input type="checkbox" id="alphaMatting" />
+          </label>
+        </div>
+
+        <div class="grid three-cols">
+          <label class="field">
+            <span>Foreground</span>
+            <input type="number" id="foreground" value="240" />
+          </label>
+          <label class="field">
+            <span>Background</span>
+            <input type="number" id="background" value="10" />
+          </label>
+          <label class="field">
+            <span>Erode</span>
+            <input type="number" id="erode" value="10" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="removeBtn">Remove background</button>
+          <button class="btn btn-secondary" id="resetBtn" type="button">Reset</button>
+        </div>
+
+        <a class="btn btn-download disabled" id="downloadBtn" download="removed-background.png">Download result</a>
+
+        <div id="status" class="status info">Waiting for image...</div>
+      </aside>
+
+      <section class="card panel preview-panel">
+        <div class="preview-head">
+          <div>
+            <h2>Preview</h2>
+            <p class="muted">See the original file and final transparent PNG result.</p>
+          </div>
+        </div>
+
+        <div class="preview-grid">
+          <div>
+            <h3>Original</h3>
+            <div class="checker preview-box">
+              <img id="originalPreview" alt="Original image preview" />
+              <span id="originalPlaceholder">Original image preview</span>
+            </div>
+          </div>
+          <div>
+            <h3>Result</h3>
+            <div class="checker preview-box">
+              <img id="resultPreview" alt="Removed background result" />
+              <span id="resultPlaceholder">Removed background result</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
